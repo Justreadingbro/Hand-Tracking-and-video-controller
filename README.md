@@ -1,20 +1,23 @@
-# Hand-Tracking-and-video-controller
+# 🖐️ Hand-Tracking-and-video-controller
 
 Control your **Windows system** using just your **hand gestures**!  
-Built using **Python**, **MediaPipe**, and **OpenCV**, this project lets you interact with your PC touch-free.
+Built using **Python**, **MediaPipe**, and **OpenCV**, this project lets you interact with your PC touch-free — no keyboard or mouse needed.
 
 ---
 
 ## ✅ Features
 
-| Gesture                              | Action                    |
-|--------------------------------------|---------------------------|
-| 👊 Fist                               | Pause media               |
-| ✋ Open palm (5 fingers)              | Play media                |
-| ✌️ Peace sign (Index + Middle)       | Volume Up                 |
-| 🤘 Four fingers (no pinky)           | Volume Down               |
-| 👉 Swipe right (2 fingers up)        | Show Desktop (`Win + D`)  |
-| 👈 Swipe left (2 fingers up)         | Switch App (`Alt + Tab`)  |
+Each gesture is based on a **binary finger code**:  
+`[Thumb, Index, Middle, Ring, Pinky] → 0 (down) or 1 (up)`
+
+| Finger Code | Gesture Example         | Action                    |
+|-------------|--------------------------|---------------------------|
+| `00000`     | 👊 Fist                   | Pause Media               |
+| `11111`     | ✋ Open Palm              | Play Media                |
+| `01100`     | ✌️ Peace Sign             | Volume Up                 |
+| `01111`     | 🤘 Four fingers (no thumb) | Volume Down              |
+| `11000`     | 👍 + ☝️ Thumb + Index     | Show Desktop (`Win + D`)  |
+| `11100`     | 👉 + middle finger       | Switch App (`Alt + Tab`)  |
 
 ---
 
@@ -22,7 +25,8 @@ Built using **Python**, **MediaPipe**, and **OpenCV**, this project lets you int
 
 - Windows 10 or 11
 - Python 3.7+
-- Webcam or phone camera (works with Phone Link or virtual webcam apps)
+- Webcam or Phone Camera  
+  (Use Phone Link, DroidCam, or OBS Virtual Camera)
 
 ---
 
@@ -32,7 +36,8 @@ Built using **Python**, **MediaPipe**, and **OpenCV**, this project lets you int
 
 ```bash
 git clone https://github.com/Justreadingbro/Hand-Tracking-and-video-controller.git
-cd hand-gesture-control
+cd Hand-Tracking-and-video-controller
+
 ```
 ### 2.
 ```bash
