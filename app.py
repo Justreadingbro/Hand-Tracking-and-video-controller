@@ -10,9 +10,6 @@ mp_draw = mp.solutions.drawing_utils
 
 cap = cv2.VideoCapture(0)
 
-prev_x_pos = None
-swipe_cooldown_sec = 1.0
-last_swipe_timestamp = 0
 action_cooldown_sec = 0.5
 last_action_timestamp = 0
 
@@ -41,38 +38,40 @@ while True:
     if results.multi_hand_landmarks:
         hand_landmarks = results.multi_hand_landmarks[0]
         finger_states = get_finger_states(hand_landmarks.landmark)
-        total_fingers_up = sum(finger_states)
-        if total_fingers_up == 5 and (current_time - last_action_timestamp) > action_cooldown_sec:
-            pyautogui.press('playpause')
+
+        finger_code = ''.join(map(str, finger_states))
+
+        if finger_code == '00000' and (current_time - last_action_timestamp) > action_cooldown_sec:
+            pyautogui.press('playpause') 
+            print("Gesture: 00000 → Pause")
             last_action_timestamp = current_time
-        elif total_fingers_up == 0 and (current_time - last_action_timestamp) > action_cooldown_sec:
-            pyautogui.press('playpause')
+
+        elif finger_code == '11111' and (current_time - last_action_timestamp) > action_cooldown_sec:
+            pyautogui.press('playpause') 
+            print("Gesture: 11111 → Play")
             last_action_timestamp = current_time
-        elif finger_states == [0, 1, 1, 0, 0] and (current_time - last_action_timestamp) > action_cooldown_sec:
+
+        elif finger_code == '01100' and (current_time - last_action_timestamp) > action_cooldown_sec:
             pyautogui.press('volumeup')
+            print("Gesture: 01100 → Volume Up")
             last_action_timestamp = current_time
-        elif finger_states == [0, 1, 1, 1, 1] and (current_time - last_action_timestamp) > action_cooldown_sec:
+
+        elif finger_code == '01111' and (current_time - last_action_timestamp) > action_cooldown_sec:
             pyautogui.press('volumedown')
+            print("Gesture: 01111 → Volume Down")
             last_action_timestamp = current_time
-        elif finger_states == [0, 1, 1, 0, 0]:
-            x_pos = hand_landmarks.landmark[12].x
 
-            if prev_x_pos is not None:
-                diff = x_pos - prev_x_pos
-                if abs(diff) > 0.1 and (current_time - last_swipe_timestamp) > swipe_cooldown_sec:
-                    if diff > 0:
-                        pyautogui.hotkey('win', 'd')
-                    else:
-                        pyautogui.hotkey('alt', 'tab')
-                    last_swipe_timestamp = current_time
+        elif finger_code == '11000' and (current_time - last_action_timestamp) > action_cooldown_sec:
+            pyautogui.hotkey('win', 'd')
+            print("Gesture: 11000 → Show Desktop")
+            last_action_timestamp = current_time
 
-            prev_x_pos = x_pos
-        else:
-            prev_x_pos = None
+        elif finger_code == '11100' and (current_time - last_action_timestamp) > action_cooldown_sec:
+            pyautogui.hotkey('alt', 'tab')
+            print("Gesture: 11100 → Switch App")
+            last_action_timestamp = current_time
 
         mp_draw.draw_landmarks(frame, hand_landmarks, mp_hands.HAND_CONNECTIONS)
-    else:
-        prev_x_pos = None
 
     cv2.imshow("Gesture Control", frame)
     if cv2.waitKey(1) & 0xFF == 27:
