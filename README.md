@@ -15,8 +15,8 @@ Each gesture is based on a **binary finger code**:
 | `00000`     | 👊 Fist                   | Pause Media               |
 | `11111`     | ✋ Open Palm              | Play Media                |
 | `01100`     | ✌️ Peace Sign             | Volume Up                 |
-| `01111`     | 🤘 Four fingers (no thumb) | Volume Down              |
-| `11000`     | 👍 + ☝️ Thumb + Index     | Show Desktop (`Win + D`)  |
+| `01111`     | Four fingers (no thumb) | Volume Down              |
+| `11000`     | 👉 Thumb + Index     | Show Desktop (`Win + D`)  |
 | `11100`     | 👉 + middle finger       | Switch App (`Alt + Tab`)  |
 
 ---
